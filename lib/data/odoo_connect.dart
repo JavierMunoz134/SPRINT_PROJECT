@@ -2,7 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/logger.dart';
 import 'package:sprint/odoo-rpc/odoo_client.dart';
 
-import '../model/user1.dart';
+import '../model/User1.dart';
 import 'dart:convert' as convert;
 
 class OdooConnect{
@@ -21,8 +21,8 @@ class OdooConnect{
     await client.authenticate(SPRINT_DATABASE, SPRINT_USER, SPRINT_PASSWORD);
   }
 
-  static Future<List<User>> getUsers() async{
-    List<User> found = [];
+  static Future<List<User1>> getUsers() async{
+    List<User1> found = [];
     try {
       List res = await client.callKw({
         'model': 'res.users', 'method': 'search_read', 'args': [],
@@ -35,15 +35,15 @@ class OdooConnect{
       if (res.isNotEmpty) {
         for(var result in res){
           var temp = convert.jsonEncode(result);
-          found.add(User.fromJson(convert.jsonDecode(temp)));
+          found.add(User1.fromJson(convert.jsonDecode(temp)));
         }
       }
     }catch(a){logger.e(a);}
     return found;
   }
 
-  static Future<User?> getUserByEmail(String email) async{
-    User? found;
+  static Future<User1?> getUserByEmail(String email) async{
+    User1? found;
     try {
       if(email.isEmpty){
         throw Exception("Email cannot be empty");
@@ -60,13 +60,13 @@ class OdooConnect{
       //Obtención de resultados en formato JSON
       if (res.isNotEmpty) {
         var temp = convert.jsonEncode(res[0]);
-        found = User.fromJson(convert.jsonDecode(temp));
+        found = User1.fromJson(convert.jsonDecode(temp));
       }
     }catch(a){logger.e(a);}
     return found;
   }
 
-  static Future<bool> modifyUser(User user) async{
+  static Future<bool> modifyUser(User1 user) async{
     try {
       if(user.id == null){
         throw Exception("User id cannot be empty");
@@ -85,7 +85,7 @@ class OdooConnect{
     }
   }
 
-  static Future<bool> createUser(User user) async{
+  static Future<bool> createUser(User1 user) async{
     try {
       if(user.id != null){
         throw Exception("User id cannot be created");
