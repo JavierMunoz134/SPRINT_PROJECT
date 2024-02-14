@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:bloc/bloc.dart';
+// Importa tus clases AuthRepository y AuthenticationBloc
+ import 'package:sprint/bloc/register_bloc.dart';
+ import 'package:sprint/repository/register_repo.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
+  RegisterScreen({super.key});
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _codeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +25,13 @@ class RegisterScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              // Campo de texto para el correo electrónico
               TextFormField(
+                controller: _emailController,
                 decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  hintText: 'Introduce tu nombre de usuario',
-                  labelText: 'Nombre de usuario',
+                  icon: Icon(Icons.email),
+                  hintText: 'Introduce tu correo electrónico',
+                  labelText: 'Correo electrónico',
                 ),
               ),
               TextFormField(
@@ -44,8 +55,7 @@ class RegisterScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Aquí abrimos el pop-up para registro sin contraseña
-                    _showVerificationCodeDialog(context);
+                    _sendVerificationEmail(context);
                   },
                   child: const Text('Registrar sin contraseña'),
                 ),
@@ -57,6 +67,16 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
+  void _sendVerificationEmail(BuildContext context) async {
+    final authRepository = RepositoryProvider.of<AuthRepository>(context);
+    try {
+      await authRepository.registerUser(_emailController.text);
+      _showVerificationCodeDialog(context);
+    } catch (e) {
+      // Manejar el error aquí, posiblemente mostrando un mensaje al usuario
+    }
+  }
+
   void _showVerificationCodeDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -64,10 +84,10 @@ class RegisterScreen extends StatelessWidget {
         return AlertDialog(
           title: const Text("Introduce el código de verificación"),
           content: TextFormField(
+            controller: _codeController,
             decoration: const InputDecoration(
               hintText: 'Código de verificación',
             ),
-            // Aquí puedes añadir el controlador para manejar el texto ingresado
           ),
           actions: <Widget>[
             TextButton(
@@ -79,8 +99,7 @@ class RegisterScreen extends StatelessWidget {
             TextButton(
               child: const Text('Verificar'),
               onPressed: () {
-                // Aquí va la lógica para manejar la verificación
-                Navigator.of(context).pop();
+                _verifyCode(context);
               },
             ),
           ],
@@ -88,4 +107,12 @@ class RegisterScreen extends StatelessWidget {
       },
     );
   }
+
+  void _verifyCode(BuildContext context) {
+    final authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
+    authenticationBloc.add(VerifyCode(_codeController.text));
+    Navigator.of(context).pop();
+  }
 }
+
+
