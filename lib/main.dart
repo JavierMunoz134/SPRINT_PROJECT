@@ -6,9 +6,11 @@ import 'package:sprint/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sprint/repository/register_repo.dart';
 
+import 'firebase_options.dart';
+
 Future main() async {
   await dotenv.load(fileName: "./assets/.env");
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
   OdooConnect.initialize();
   runApp(
     RepositoryProvider<AuthRepository>(
