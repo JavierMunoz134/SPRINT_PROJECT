@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sprint/model/user.dart';
 
 
 // Eventos relacionados con la autenticación
@@ -21,7 +21,6 @@ class VerifyCode extends AuthEvent {
 
 
   VerifyCode(this.verificationCode);
-
 }
 
 
@@ -52,8 +51,8 @@ class AuthenticationBloc extends Bloc<AuthEvent, AuthState> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
 
-  // Constructor
-  AuthenticationBloc() : super();
+  // Constructor actualizado
+  AuthenticationBloc() : super(AuthenticationLoadingState());
 
 
   @override
@@ -82,7 +81,7 @@ class AuthenticationBloc extends Bloc<AuthEvent, AuthState> {
       try {
         final AuthCredential credential = EmailAuthProvider.credentialWithLink(
           email: _auth.currentUser!.email!,
-          link: event.verificationCode,
+          emailLink: event.verificationCode, // Cambia 'link' a 'emailLink'
         );
         final UserCredential userCredential =
         await _auth.signInWithCredential(credential);
