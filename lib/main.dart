@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:sprint/data/odoo_connect.dart';
 import 'package:sprint/screens/login_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 Future main() async{
   await dotenv.load(fileName: "assets/.env");
