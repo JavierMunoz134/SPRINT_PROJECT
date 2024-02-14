@@ -21,6 +21,7 @@ class VerifyCode extends AuthEvent {
 
 
   VerifyCode(this.verificationCode);
+
 }
 
 
