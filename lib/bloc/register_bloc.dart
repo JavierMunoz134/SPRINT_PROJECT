@@ -1,3 +1,4 @@
+import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sprint/model/user.dart';
@@ -20,6 +21,7 @@ class VerifyCode extends AuthEvent {
 
 
   VerifyCode(this.verificationCode);
+
 }
 
 
@@ -50,8 +52,8 @@ class AuthenticationBloc extends Bloc<AuthEvent, AuthState> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
 
-  // Constructor explícito que invoca el constructor de la superclase
-  AuthenticationBloc() : super(AuthenticationLoadingState());
+  // Constructor
+  AuthenticationBloc() : super();
 
 
   @override
