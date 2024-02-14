@@ -2,7 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/logger.dart';
 import 'package:sprint/odoo-rpc/odoo_client.dart';
 
-import '../model/user.dart';
+import '../model/user1.dart';
 import 'dart:convert' as convert;
 
 class OdooConnect{
