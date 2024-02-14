@@ -5,7 +5,7 @@ import 'package:sprint/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future main() async{
-  await dotenv.load(fileName: "assets/.env");
+  await dotenv.load(fileName: "./assets/.env");
   OdooConnect.initialize();
   runApp(const MyApp());
 }
