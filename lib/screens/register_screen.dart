@@ -73,6 +73,7 @@ class RegisterScreen extends StatelessWidget {
       await authRepository.registerUser(_emailController.text);
       _showVerificationCodeDialog(context);
     } catch (e) {
+      debugPrint('Error al registrar: ${e.toString()}');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error al registrar: ${e.toString()}'),
@@ -118,6 +119,7 @@ class RegisterScreen extends StatelessWidget {
     try {
       authenticationBloc.add(VerifyCode(_codeController.text));
     } catch (e) {
+      debugPrint('Error al verificar el código: ${e.toString()}');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error al verificar el código: ${e.toString()}'),
@@ -128,6 +130,7 @@ class RegisterScreen extends StatelessWidget {
       Navigator.of(context).pop();
     }
   }
+
 
 }
 

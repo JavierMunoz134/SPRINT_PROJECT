@@ -54,7 +54,7 @@ class AuthenticationBloc extends Bloc<AuthEvent, AuthState> {
         await _auth.sendSignInLinkToEmail(
           email: event.email,
           actionCodeSettings: ActionCodeSettings(
-            url: 'https://your-app-url.com',
+            url: '',
             handleCodeInApp: true,
           ),
         );
