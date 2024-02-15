@@ -73,7 +73,12 @@ class RegisterScreen extends StatelessWidget {
       await authRepository.registerUser(_emailController.text);
       _showVerificationCodeDialog(context);
     } catch (e) {
-      // Manejar el error aquí,
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error al registrar: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -110,9 +115,20 @@ class RegisterScreen extends StatelessWidget {
 
   void _verifyCode(BuildContext context) {
     final authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
-    authenticationBloc.add(VerifyCode(_codeController.text));
-    Navigator.of(context).pop();
+    try {
+      authenticationBloc.add(VerifyCode(_codeController.text));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error al verificar el código: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      Navigator.of(context).pop();
+    }
   }
+
 }
 
 
