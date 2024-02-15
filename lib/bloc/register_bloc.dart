@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase;
 
 import 'package:firebase_auth/firebase_auth.dart';
 import '../data/odoo_connect.dart';
+import '../model/User1.dart';
 import '../model/language.dart';
 
 
@@ -53,7 +54,7 @@ class AuthenticationBloc extends Bloc<AuthEvent, AuthState> {
         await _auth.sendSignInLinkToEmail(
           email: event.email,
           actionCodeSettings: ActionCodeSettings(
-            url: 'https://your-app-url.com',
+            url: '',
             handleCodeInApp: true,
           ),
         );
@@ -68,20 +69,28 @@ class AuthenticationBloc extends Bloc<AuthEvent, AuthState> {
           email: _auth.currentUser!.email!,
           emailLink: event.verificationCode,
         );
-        final UserCredential userCredential =
-        await _auth.signInWithCredential(credential);
+        final UserCredential userCredential = await _auth.signInWithCredential(credential);
 
-        // Verificamos que el usuario no sea nulo antes de llamar a createUser
         if (userCredential.user != null) {
-          // Crear una instancia de tu clase User usando la información del User de Firebase
-          User myAppUser = User(
-            userCredential.user!.email!, // asegúrate de que el email no sea nulo
-            '', // password - puede ser cualquier valor, ya que no se usa
-            true, // active
-            '', // name - puede ser cualquier valor, ya que no se usa
-            //Language.english, // lang
-            userCredential.user!.uid, // id
-            '', // avatar - puede ser cualquier valor, ya que no se usa
+          // Asignar el valor de Language usando uno de los valores definidos
+          Language userLanguage = Language.enUS; // o Language.esES, según lo que necesites
+
+          // Convertir UID de String a int, si es necesario
+          int? userId;
+          try {
+            userId = int.tryParse(userCredential.user!.uid);
+          } catch (e) {
+            // Manejar error si el UID no se puede convertir a int
+          }
+
+          User1 myAppUser = User1(
+            userCredential.user!.email!, // Email
+            '', // Password
+            true, // Active
+            '', // Name
+            userLanguage, // Language
+            userId, // ID, como entero opcional
+            '', // Avatar
           );
 
           final bool isCreated = await OdooConnect.createUser(myAppUser);
@@ -93,13 +102,13 @@ class AuthenticationBloc extends Bloc<AuthEvent, AuthState> {
         } else {
           yield AuthenticationFailureState('Error al obtener datos del usuario');
         }
-
-        // Añadimos la línea para asignar firebase.User a firebaseUser
-        firebase.User firebaseUser = userCredential.user!;
       } catch (e) {
         yield AuthenticationFailureState(e.toString());
       }
     }
+
+
+
   }
 }
 

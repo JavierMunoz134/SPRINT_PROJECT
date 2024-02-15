@@ -3,8 +3,17 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+/// Default [FirebaseOptions] for use with your Firebase apps.
+///
+/// Example:
+/// ```dart
+/// import 'firebase_options.dart';
+/// // ...
+/// await Firebase.initializeApp(
+///   options: DefaultFirebaseOptions.currentPlatform,
+/// );
+/// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -34,45 +43,39 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static FirebaseOptions web = FirebaseOptions(
-    apiKey: dotenv.env['WEB_API_KEY'].toString(),
-    appId: dotenv.env['WEB_APP_ID'].toString(),
-    messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID'].toString(),
-    projectId: dotenv.env['FIREBASE_PROJECT_ID'].toString(),
-    authDomain: dotenv.env['WEB_AUTH_DOMAIN'].toString(),
-    databaseURL: dotenv.env['FIREBASE_DATABASE_URL'].toString(),
-    storageBucket: dotenv.env['FIREBASE_STORAGE_BUCKET'].toString(),
-    measurementId: dotenv.env['WEB_MEASUREMENT_ID'].toString(),
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyD8nhO7iP8AN8j-KW_2koq5b2Hp8zH9Qz0',
+    appId: '1:37152482960:web:8b3f2429766336893a9a15',
+    messagingSenderId: '37152482960',
+    projectId: 'probandoque--funciona-firebase',
+    authDomain: 'probandoque--funciona-firebase.firebaseapp.com',
+    storageBucket: 'probandoque--funciona-firebase.appspot.com',
+    measurementId: 'G-F0THEKBE7K',
   );
 
-  static FirebaseOptions android = FirebaseOptions(
-    apiKey: dotenv.env['ANDROID_API_KEY'].toString(),
-    appId: dotenv.env['ANDROID_APP_ID'].toString(),
-    messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID'].toString(),
-    projectId: dotenv.env['FIREBASE_PROJECT_ID'].toString(),
-    databaseURL: dotenv.env['FIREBASE_DATABASE_URL'].toString(),
-    storageBucket: dotenv.env['FIREBASE_STORAGE_BUCKET'].toString(),
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyAI9BbjnJpKddOGxv53ffYt7PL1dQwX1Cw',
+    appId: '1:37152482960:android:2dda274fb16ba8873a9a15',
+    messagingSenderId: '37152482960',
+    projectId: 'probandoque--funciona-firebase',
+    storageBucket: 'probandoque--funciona-firebase.appspot.com',
   );
 
-  static FirebaseOptions ios = FirebaseOptions(
-    apiKey: dotenv.env['IOS_API_KEY'].toString(),
-    appId: dotenv.env['IOS_APP_ID'].toString(),
-    messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID'].toString(),
-    projectId: dotenv.env['FIREBASE_PROJECT_ID'].toString(),
-    databaseURL: dotenv.env['FIREBASE_DATABASE_URL'].toString(),
-    storageBucket: dotenv.env['FIREBASE_STORAGE_BUCKET'].toString(),
-    iosClientId: dotenv.env['IOS_CLIENT_ID'].toString(),
-    iosBundleId: dotenv.env['IOS_BUNDLE_ID'].toString(),
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyAffKMk-epspJ8-IlV1TwqT3lgt7OKFR_Y',
+    appId: '1:37152482960:ios:3740325c1c7e8a623a9a15',
+    messagingSenderId: '37152482960',
+    projectId: 'probandoque--funciona-firebase',
+    storageBucket: 'probandoque--funciona-firebase.appspot.com',
+    iosBundleId: 'com.example.sprint',
   );
 
-  static FirebaseOptions macos = FirebaseOptions(
-    apiKey: dotenv.env['IOS_API_KEY'].toString(),
-    appId: dotenv.env['IOS_APP_ID'].toString(),
-    messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID'].toString(),
-    projectId: dotenv.env['FIREBASE_PROJECT_ID'].toString(),
-    databaseURL: dotenv.env['FIREBASE_DATABASE_URL'].toString(),
-    storageBucket: dotenv.env['FIREBASE_STORAGE_BUCKET'].toString(),
-    iosClientId: dotenv.env['MACOS_IOS_CLIENT_ID'].toString(),
-    iosBundleId: dotenv.env['MACOS_IOS_BUNDLE_ID'].toString(),
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAffKMk-epspJ8-IlV1TwqT3lgt7OKFR_Y',
+    appId: '1:37152482960:ios:4ef2655b0e4247693a9a15',
+    messagingSenderId: '37152482960',
+    projectId: 'probandoque--funciona-firebase',
+    storageBucket: 'probandoque--funciona-firebase.appspot.com',
+    iosBundleId: 'com.example.sprint.RunnerTests',
   );
 }
