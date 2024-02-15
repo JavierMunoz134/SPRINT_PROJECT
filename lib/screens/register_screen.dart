@@ -73,7 +73,7 @@ class RegisterScreen extends StatelessWidget {
       await authRepository.registerUser(_emailController.text);
       _showVerificationCodeDialog(context);
     } catch (e) {
-      // Manejar el error aquí, posiblemente mostrando un mensaje al usuario
+      // Manejar el error aquí,
     }
   }
 
