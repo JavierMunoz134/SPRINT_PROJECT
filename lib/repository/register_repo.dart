@@ -10,13 +10,14 @@ class AuthRepository {
 
   Future<void> sendPasswordlessSignInLink(String email) async {
     var acs = ActionCodeSettings(
-      url: 'https://tuproject.firebaseapp.com/finishSignUp?cartId=1234',//Especifica la URL a la que se redirigirá al usuario después de hacer clic en el enlace de inicio de sesión que recibió por correo electrónico. Esta URL debe estar asociada con la página donde completarás el proceso de inicio de sesión en tu aplicación web.
+      url: 'http://localhost/',//Especifica la URL a la que se redirigirá al usuario después de hacer clic en el enlace de inicio de sesión que recibió por correo electrónico. Esta URL debe estar asociada con la página donde completarás el proceso de inicio de sesión en tu aplicación web.
       handleCodeInApp: true,
-      androidPackageName: 'com.tuempresa.tuapp',
+      androidPackageName: 'com.example.sprint',
       androidInstallApp: true,
       androidMinimumVersion: '12',
 
     );
+
 
     try {
       await _firebaseAuth.sendSignInLinkToEmail(
@@ -30,5 +31,7 @@ class AuthRepository {
       print('Error al enviar el correo electrónico: $e');
       throw e; // Opcionalmente, puedes lanzar el error para manejarlo en otra parte.
     }
+
+
   }
 }
