@@ -1,65 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:bloc/bloc.dart';
-// Importa tus clases AuthRepository y AuthenticationBloc
- import 'package:sprint/bloc/register_bloc.dart';
- import 'package:sprint/repository/register_repo.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
-
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends StatelessWidget {
  const RegisterScreen({super.key});
-
- @override
- _RegisterScreenState createState() => _RegisterScreenState();
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
- // Controlador para el campo de texto del correo electrónico
- final TextEditingController _emailController = TextEditingController();
-
- void _showPasswordlessRegisterDialog() {
-  showDialog(
-   context: context,
-   builder: (context) {
-    return AlertDialog(
-     title: const Text('Registro sin contraseña'),
-     content: TextField(
-      controller: _emailController,
-      decoration: const InputDecoration(
-       hintText: 'Introduce tu correo electrónico',
-      ),
-      keyboardType: TextInputType.emailAddress,
-     ),
-     actions: <Widget>[
-      TextButton(
-       child: const Text('Cancelar'),
-       onPressed: () {
-        Navigator.of(context).pop();
-       },
-      ),
-      TextButton(
-       child: const Text('Enviar'),
-       onPressed: () {
-        // Aquí va la lógica para manejar el envío del correo electrónico
-        print('Correo electrónico enviado a: ${_emailController.text}');
-        Navigator.of(context).pop();
-       },
-      ),
-     ],
-    );
-   },
-  );
- }
 
  @override
  Widget build(BuildContext context) {
   return Scaffold(
    appBar: AppBar(
-    title: const Text('Registro'),
+    title: const Text('Register'),
     centerTitle: true,
    ),
    body: Center(
@@ -68,6 +16,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
      child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+       Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: ElevatedButton(
+         onPressed: () {
+          // Aquí va la lógica de inicio de sesión con Google
+         },
+         style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+           borderRadius: BorderRadius.circular(50.0),
+          ),
+         ),
+         child: const Text('Google'),
+        ),
+       ),
        TextFormField(
         decoration: const InputDecoration(
          icon: Icon(Icons.person),
@@ -92,13 +54,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
          child: const Text('Registro'),
         ),
        ),
-       // Botón para registro sin contraseña
-       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0),
-        child: ElevatedButton(
-         onPressed: _showPasswordlessRegisterDialog,
-         child: const Text('Registro sin contraseña'),
-        ),
+       TextButton(
+        onPressed: () {
+         // Mostrar el cuadro de diálogo solo al pulsar "Registro sin contraseña"
+         _showEmailInputDialog(context);
+        },
+        child: Text('Registro sin contraseña'),
        ),
       ],
      ),
@@ -107,12 +68,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
   );
  }
 
- @override
- void dispose() {
-  // Asegúrate de limpiar el controlador cuando el Widget se deshaga
-  _emailController.dispose();
-  super.dispose();
+ // Función para mostrar un AlertDialog pidiendo el correo
+ Future<void> _showEmailInputDialog(BuildContext context) async {
+  return showDialog(
+   context: context,
+   builder: (BuildContext context) {
+    return AlertDialog(
+     title: Text('Introduce tu correo'),
+     content: TextFormField(
+      decoration: const InputDecoration(
+       hintText: 'Correo electrónico',
+      ),
+     ),
+     actions: [
+      TextButton(
+       onPressed: () {
+        Navigator.of(context).pop();
+       },
+       child: Text('Cancelar'),
+      ),
+      ElevatedButton(
+       onPressed: () {
+        // Aquí va la lógica para el registro sin contraseña
+        // Puedes obtener el valor del correo ingresado y procesarlo
+        Navigator.of(context).pop();
+       },
+       child: Text('Aceptar'),
+      ),
+     ],
+    );
+   },
+  );
  }
 }
-
-
