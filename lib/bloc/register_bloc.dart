@@ -49,7 +49,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   Future<void> _onSendPasswordlessEmail(SendPasswordlessEmail event, Emitter<RegisterState> emit) async {
     emit(RegisterLoading());
     try {
-      await _authRepository.sendPasswordlessSignInLink(event.email);
+      //await quitado
+       _authRepository.sendPasswordlessSignInLink(event.email);
       emit(RegisterSuccess());
     } catch (e) {
       emit(RegisterFailure(e.toString()));
