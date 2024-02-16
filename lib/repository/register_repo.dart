@@ -15,6 +15,7 @@ class AuthRepository {
       androidPackageName: 'com.tuempresa.tuapp',
       androidInstallApp: true,
       androidMinimumVersion: '12',
+
     );
 
     try {
