@@ -21,6 +21,7 @@ dependencies:
   flutter_bloc: ^8.0.0
   firebase_core: ^2.25.4  #
   firebase_auth: ^4.17.4
+  equatable: ^2.0.3
 
   #JF
   google_sign_in: ^6.2.1

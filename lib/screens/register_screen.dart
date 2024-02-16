@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 // Importa tus clases AuthRepository y AuthenticationBloc
- import 'package:sprint/bloc/register_bloc.dart';
- import 'package:sprint/repository/register_repo.dart';
+import 'package:sprint/bloc/register_bloc.dart';
+import 'package:sprint/repository/register_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 import 'package:flutter/material.dart';
-
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -18,7 +16,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
- // Controlador para el campo de texto del correo electrónico
  final TextEditingController _emailController = TextEditingController();
 
  void _showPasswordlessRegisterDialog() {
@@ -44,9 +41,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       TextButton(
        child: const Text('Enviar'),
        onPressed: () {
-        // Aquí va la lógica para manejar el envío del correo electrónico
-        print('Correo electrónico enviado a: ${_emailController.text}');
-        Navigator.of(context).pop();
+        // Llama al BLoC para enviar el correo electrónico
+        context.read<RegisterBloc>().add(SendPasswordlessEmail(_emailController.text));
+       // Navigator.of(context).pop();
        },
       ),
      ],

@@ -5,17 +5,22 @@ import 'package:sprint/data/odoo_connect.dart';
 import 'package:sprint/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sprint/repository/register_repo.dart';
+import 'package:sprint/bloc/register_bloc.dart';
 
 import 'firebase_options.dart';
 
 Future main() async {
   await dotenv.load(fileName: "./assets/.env");
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
-  OdooConnect.initialize();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  OdooConnect.initialize();  // Asegúrate de que esta sea la inicialización correcta para tu caso
+
   runApp(
     RepositoryProvider<AuthRepository>(
       create: (context) => AuthRepository(),
-      child: const MyApp(),
+      child: BlocProvider(
+        create: (context) => RegisterBloc(RepositoryProvider.of<AuthRepository>(context)),
+        child: const MyApp(),
+      ),
     ),
   );
 }
@@ -26,13 +31,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Sprint Project',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
-        home: const SafeArea(
-          child: LoginScreen(),
-        )
+      title: 'Sprint Project',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      home: const SafeArea(
+        child: LoginScreen(),
+      ),
     );
   }
 }
