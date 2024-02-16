@@ -1,7 +1,7 @@
 import 'package:sprint/model/language.dart';
 
-class User1{
-  const User1(this.email, this.password, this.active, this.name, this.lang, [this.id, this.avatar = ""]);
+class User{
+  const User(this.email, this.password, this.active, this.name, this.lang, [this.id, this.avatar = ""]);
   final int? id;
   final String email;
   final String password;
@@ -10,8 +10,8 @@ class User1{
   final String avatar;
   final Language lang;
 
-  static User1 fromJson(dynamic json){
-    return User1(
+  static User fromJson(dynamic json){
+    return User(
       json['email'].toString(),
       json['password'].toString(),
       json['active'] as bool,
