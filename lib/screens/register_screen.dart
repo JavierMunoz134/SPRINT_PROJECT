@@ -50,14 +50,13 @@ class RegisterScreen extends StatelessWidget {
         child: ElevatedButton(
          onPressed: () {
           // Aquí va la lógica de registro
-          _showEmailInputDialog(context);
          },
          child: const Text('Registro'),
         ),
        ),
        TextButton(
         onPressed: () {
-         // Aquí va la lógica para el registro sin contraseña
+         // Mostrar el cuadro de diálogo solo al pulsar "Registro sin contraseña"
          _showEmailInputDialog(context);
         },
         child: Text('Registro sin contraseña'),
