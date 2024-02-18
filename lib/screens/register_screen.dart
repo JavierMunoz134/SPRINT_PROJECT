@@ -8,6 +8,7 @@ import 'package:sprint/data/odoo_connect.dart';
 import '../model/language.dart';
 import '../model/user.dart';
 import 'package:sprint/screens/home_screen.dart';
+import 'dart:math';
 
 class RegisterScreen extends StatefulWidget {
  const RegisterScreen({super.key});
@@ -60,6 +61,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
  void _showPasswordlessRegisterDialog() {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final String randomPassword = generateRandomPassword(12);
 
   showDialog(
    context: context,
@@ -82,12 +84,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           hintText: 'Introduce tu nombre de usuario',
          ),
         ),
-        TextField(
-         controller: _passwordController,
-         decoration: const InputDecoration(
-          hintText: 'Introduce tu contraseña',
-         ),
-         obscureText: true,
+        Padding(
+         padding: const EdgeInsets.only(top: 8.0),
+         child: Text('Tu contraseña generada: $randomPassword'),
         ),
         // Agrega aquí más campos si son necesarios
        ],
@@ -107,7 +106,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         final String email = _emailController.text;
         final String username = _usernameController.text;
         final String password = _passwordController.text;
-        // Asume que el usuario está activo y elige un idioma por defecto
         final bool active = true;
         final Language lang = Language.enUS;
 
@@ -146,6 +144,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
    },
   );
+ }
+
+ String generateRandomPassword(int length) {
+  const String _chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+  Random _rnd = Random();
+  return List.generate(length, (index) => _chars[_rnd.nextInt(_chars.length)]).join();
  }
 
 
