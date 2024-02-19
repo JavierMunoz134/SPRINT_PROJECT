@@ -16,7 +16,7 @@ class OdooConnect{
   static final client = OdooClient(odooServerURL);
 
   static final logger = Logger();
-  
+
   static void initialize() async{
     await client.authenticate(SPRINT_DATABASE, SPRINT_USER, SPRINT_PASSWORD);
   }
@@ -102,5 +102,5 @@ class OdooConnect{
       return false;
     }
   }
-  
+
 }
