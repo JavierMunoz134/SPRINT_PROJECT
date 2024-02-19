@@ -19,6 +19,8 @@ class SendPasswordlessEmail extends RegisterEvent {
 
   @override
   List<Object> get props => [email];
+
+
 }
 
 // Estados
@@ -30,6 +32,7 @@ abstract class RegisterState extends Equatable {
 class RegisterInitial extends RegisterState {}
 class RegisterLoading extends RegisterState {}
 class RegisterSuccess extends RegisterState {}
+
 class RegisterFailure extends RegisterState {
   final String error;
   RegisterFailure(this.error);
